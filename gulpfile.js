@@ -36,7 +36,7 @@ const fonts = () => {
         .pipe(dest('./app/fonts/'))
 }
 
-const cb = () => {}
+const cb = () => { }
 
 let srcFonts = './src/scss/_fonts.scss';
 let appFonts = './app/fonts/';
@@ -106,6 +106,7 @@ const htmlInclude = () => {
 
 const imgToApp = () => {
     return src(['./src/img/**.jpg', './src/img/**.png', './src/img/**.jpeg', './src/img/**.webp'])
+        .pipe(webp())
         .pipe(dest('./app/img'))
 }
 
@@ -175,19 +176,6 @@ exports.fileinclude = htmlInclude;
 
 exports.default = series(clean, parallel(htmlInclude, scripts, fonts, resources, imgToApp, svgSprites), fontsStyle, styles, watchFiles);
 
-/*const tinypng = () => {
-    return src(['./src/img/**.jpg', './src/img/**.png', './src/img/**.jpeg'])
-        .pipe(tiny({
-            key: '***',
-            log: true
-        }))
-        .pipe(dest('./app/img'))
-}*/
-const webp1 = () => {
-    return src(['./src/img/**.jpg', './src/img/**.png', './src/img/**.jpeg'])
-        .pipe(webp())
-        .pipe(dest('./app/img'))
-}
 
 const stylesBuild = () => {
     return src('./src/scss/**/*.scss')
@@ -234,7 +222,7 @@ const scriptsBuild = () => {
         .pipe(dest('./app/js'))
 }
 
-exports.build = series(clean, parallel(htmlInclude, scriptsBuild, fonts, resources, imgToApp, svgSprites), fontsStyle, stylesBuild, webp1 /*, tinypng*/ );
+exports.build = series(clean, parallel(htmlInclude, scriptsBuild, fonts, resources, imgToApp, svgSprites), fontsStyle, stylesBuild,/*, tinypng*/);
 
 /*
 // deploy
